@@ -1,0 +1,11 @@
+.ExampleGrid {
+}
+
+.ExampleGrid-container {
+  margin: auto;
+  width: 75%;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* three columns */
+  grid-auto-rows: 200px;
+}
