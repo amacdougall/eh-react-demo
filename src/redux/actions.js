@@ -8,6 +8,14 @@
 export const SET_VIEW = "SET_VIEW";
 
 /**
+ * Permitted values for the state.views property.
+ */
+export const Views = {
+  PATIENTS: "patients",
+  APPOINTMENTS: "appointments"
+};
+
+/**
  * Get the patient list. Once available, RECEIVE_PATIENT_LIST will occur.
  *
  * {name: "GET_PATIENT_LIST"}

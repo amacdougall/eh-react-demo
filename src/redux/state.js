@@ -6,18 +6,11 @@ import {
   RECEIVE_PATIENT_DETAILS,
   GET_APPOINTMENT_LIST,
   RECEIVE_APPOINTMENT_LIST,
-  TOGGLE_APPOINTMENT_EXPAND
+  TOGGLE_APPOINTMENT_EXPAND,
+  Views
 } from "./actions";
 
 import _ from "lodash";
-
-/**
- * Permitted values for the state.views property.
- */
-export const Views = {
-  PATIENTS: "patients",
-  APPOINTMENTS: "appointments"
-};
 
 /**
  * Initial state of the application.
@@ -26,6 +19,7 @@ export const Views = {
  *
  * {
  *   view: "patients",
+ *   patientsLoading: false,
  *   patients: [
  *     {
  *       id: 1,
@@ -33,12 +27,14 @@ export const Views = {
  *       company: "Intertech"
  *     }
  *   ],
+ *   patientDetailsLoading: false,
  *   patientDetails: {
  *     "1": {
  *       appointmentIDs: [1, 3],
  *       messageCount: 4
  *     }
  *   },
+ *   appointmentsLoading: false,
  *   appointments: [
  *     {
  *       id: 1,
@@ -67,8 +63,11 @@ export const Views = {
 // recommendation of maximum datastore normalization.
 export const initialState = {
   view: Views.PATIENTS,
+  patientsLoading: false,
   patients: [], // a list of patient data
+  patientDetailsLoading: false,
   patientDetails: {}, // a hash keyed by patient id
+  appointmentsLoading: false,
   appointments: [],
   appointmentDetails: {} // a hash keyed by appointment id
 };
@@ -86,14 +85,18 @@ export function reducer(state = initialState, action) {
       return Object.assign({}, state, { view: action.view });
     case GET_PATIENT_LIST:
       // side effect
-      return state;
+      return Object.assign({}, state, { patientsLoading: true });
     case RECEIVE_PATIENT_LIST:
-      return Object.assign({}, state, { patients: action.patients });
+      return Object.assign({}, state, {
+        patientsLoading: false,
+        patients: action.patients
+      });
     case GET_PATIENT_DETAILS:
       // side effect
-      return state;
+      return Object.assign({}, state, { patientDetailsLoading: true });
     case RECEIVE_PATIENT_DETAILS:
       return Object.assign({}, state, {
+        // add patient's appointments to the master list in state
         appointments: _.uniqBy([].concat(state.appointments, action.appointments), "id"),
         appointmentDetails: Object.assign(
           {},
@@ -102,6 +105,7 @@ export function reducer(state = initialState, action) {
             return Object.assign({}, result, { [a.id.toString()]: { expand: false } })
           }, {})
         ),
+        patientDetailsLoading: false,
         patientDetails: Object.assign({}, state.patientDetails, {
           [action.patientID.toString()]: {
             appointmentIDs: action.appointments.map(a => a.id),
@@ -111,10 +115,11 @@ export function reducer(state = initialState, action) {
       });
     case GET_APPOINTMENT_LIST:
       // side effect
-      return state;
+      return Object.assign({}, state, { appointmentsLoading: true });
     case RECEIVE_APPOINTMENT_LIST:
       // it's okay to replace the whole list here, since we aren't paginating (yet)
       return Object.assign({}, state, {
+        appointmentsLoading: false,
         appointments: action.appointments,
         // TODO: refactor the common appointmentDetails initialization code used
         // here and in the RECEIVE_PATIENT_DETAILS reduction

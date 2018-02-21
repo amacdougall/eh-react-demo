@@ -1,5 +1,5 @@
-import { Views, initialState, reducer } from "./state";
-
+import { initialState, reducer } from "./state";
+import { Views } from "./actions";
 import {
   setView,
   getPatientList,
@@ -24,12 +24,12 @@ describe("main application reducer", () => {
     expect(state.view).toEqual(Views.APPOINTMENTS);
   });
 
-  it("when handling GET_PATIENT_LIST, it does not change the state", () => {
+  it("when handling GET_PATIENT_LIST, it sets patientsLoading true", () => {
     const state = reducer(initialState, getPatientList());
-    expect(state).toEqual(initialState);
+    expect(state.patientsLoading).toBe(true);
   });
 
-  it("when handling RECEIVE_PATIENT_LIST, it replaces the patient list", () => {
+  describe("when handling RECEIVE_PATIENT_LIST", () => {
     const mockPatient = {
       id: 1000,
       name: "Beric Dondarrian",
@@ -45,14 +45,24 @@ describe("main application reducer", () => {
     ];
 
     const mockState = Object.assign(initialState, {}, {patients: [mockPatient]});
-    const state = reducer(mockState, receivePatientList(incomingPatients));
+    let state;
 
-    expect(state.patients).toEqual(incomingPatients);
+    beforeEach(() => {
+      state = reducer(mockState, receivePatientList(incomingPatients));
+    });
+
+    it("replaces the patient list", () => {
+      expect(state.patients).toEqual(incomingPatients);
+    });
+
+    it("sets patientsLoading to false", () => {
+      expect(state.patientsLoading).toBe(false);
+    });
   });
 
-  it("when handling GET_PATIENT_DETAILS, it does not change the state", () => {
+  it("when handling GET_PATIENT_DETAILS, it sets patientDetailsLoading to true", () => {
     const state = reducer(initialState, getPatientDetails(1));
-    expect(state).toEqual(initialState);
+    expect(state.patientDetailsLoading).toBe(true);
   });
 
   describe("when handling RECEIVE_PATIENT_DETAILS", () => {
@@ -101,11 +111,15 @@ describe("main application reducer", () => {
       expect(state.patientDetails[incomingPatientDetails.patientID].messageCount)
         .toEqual(incomingPatientDetails.messageCount);
     });
+
+    it("should set patientDetailsLoading to false", () => {
+      expect(state.patientDetailsLoading).toBe(false);
+    });
   });
 
-  it("when handling GET_APPOINTMENT_LIST, it does not change the state", () => {
+  it("when handling GET_APPOINTMENT_LIST, it sets appointmentsLoading to true", () => {
     const state = reducer(initialState, getAppointmentList());
-    expect(state).toEqual(initialState);
+    expect(state.appointmentsLoading).toBe(true);
   });
 
   describe("when handling RECEIVE_APPOINTMENT_LIST", () => {
@@ -139,6 +153,10 @@ describe("main application reducer", () => {
       let details = state.appointmentDetails[incomingAppointments[0].id.toString()];
       expect(details);
       expect(details.expand).toBe(false);
+    });
+
+    it("sets appointmentsLoading to false", () => {
+      expect(state.appointmentsLoading).toBe(false);
     });
   });
 
