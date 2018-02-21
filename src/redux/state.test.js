@@ -1,3 +1,5 @@
+import _ from "lodash";
+
 import { initialState, reducer } from "./state";
 import { Views } from "./actions";
 import {
@@ -10,8 +12,6 @@ import {
   receiveAppointmentList,
   toggleAppointmentExpand
 } from "./actionCreators";
-
-import _ from "lodash";
 
 describe("main application reducer", () => {
   it("when called without a state or action, returns the initial state", () => {

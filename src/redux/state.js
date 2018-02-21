@@ -84,7 +84,7 @@ export function reducer(state = initialState, action) {
     case SET_VIEW:
       return Object.assign({}, state, { view: action.view });
     case GET_PATIENT_LIST:
-      // side effect
+      // TODO: side effect
       return Object.assign({}, state, { patientsLoading: true });
     case RECEIVE_PATIENT_LIST:
       return Object.assign({}, state, {
@@ -92,7 +92,7 @@ export function reducer(state = initialState, action) {
         patients: action.patients
       });
     case GET_PATIENT_DETAILS:
-      // side effect
+      // TODO: side effect
       return Object.assign({}, state, { patientDetailsLoading: true });
     case RECEIVE_PATIENT_DETAILS:
       return Object.assign({}, state, {
@@ -114,7 +114,7 @@ export function reducer(state = initialState, action) {
         })
       });
     case GET_APPOINTMENT_LIST:
-      // side effect
+      // TODO: side effect
       return Object.assign({}, state, { appointmentsLoading: true });
     case RECEIVE_APPOINTMENT_LIST:
       // it's okay to replace the whole list here, since we aren't paginating (yet)
