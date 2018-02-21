@@ -145,8 +145,6 @@ export function reducer(state = initialState, action) {
         return state;
       }
     default:
-      throw new Error(`Unknown action ${action}`);
+      return state;
   }
-
-  return state;
 }

@@ -41,11 +41,10 @@ export const GET_PATIENT_DETAILS = "GET_PATIENT_DETAILS";
  * Receive details for a single patient.
  *
  * {
- *   name: "RECEIVE_PATIENT_DETAILS", patient: {
- *     details: Object,
- *     appointments: Array,
- *     messageCount: Number
- *   }
+ *   name: "RECEIVE_PATIENT_DETAILS", 
+ *   patientID: Number,
+ *   appointments: Array,
+ *   messageCount: Number
  * }
  */
 export const RECEIVE_PATIENT_DETAILS = "RECEIVE_PATIENT_DETAILS";

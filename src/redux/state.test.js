@@ -1,17 +1,17 @@
 import _ from "lodash";
 
 import { initialState, reducer } from "./state";
-import { Views } from "./actions";
 import {
-  setView,
-  getPatientList,
-  receivePatientList,
-  getPatientDetails,
-  receivePatientDetails,
-  getAppointmentList,
-  receiveAppointmentList,
-  toggleAppointmentExpand
-} from "./actionCreators";
+  SET_VIEW,
+  GET_PATIENT_LIST,
+  RECEIVE_PATIENT_LIST,
+  GET_PATIENT_DETAILS,
+  RECEIVE_PATIENT_DETAILS,
+  GET_APPOINTMENT_LIST,
+  RECEIVE_APPOINTMENT_LIST,
+  TOGGLE_APPOINTMENT_EXPAND,
+  Views
+} from "./actions";
 
 describe("main application reducer", () => {
   it("when called without a state or action, returns the initial state", () => {
@@ -20,12 +20,12 @@ describe("main application reducer", () => {
   });
 
   it("when handling SET_VIEW, it sets the correct view in the state", () => {
-    const state = reducer(initialState, setView(Views.APPOINTMENTS));
+    const state = reducer(initialState, { name: SET_VIEW, view: Views.APPOINTMENTS });
     expect(state.view).toEqual(Views.APPOINTMENTS);
   });
 
   it("when handling GET_PATIENT_LIST, it sets patientsLoading true", () => {
-    const state = reducer(initialState, getPatientList());
+    const state = reducer(initialState, { name: GET_PATIENT_LIST });
     expect(state.patientsLoading).toBe(true);
   });
 
@@ -48,7 +48,7 @@ describe("main application reducer", () => {
     let state;
 
     beforeEach(() => {
-      state = reducer(mockState, receivePatientList(incomingPatients));
+      state = reducer(mockState, { name: RECEIVE_PATIENT_LIST, patients: incomingPatients });
     });
 
     it("replaces the patient list", () => {
@@ -61,7 +61,7 @@ describe("main application reducer", () => {
   });
 
   it("when handling GET_PATIENT_DETAILS, it sets patientDetailsLoading to true", () => {
-    const state = reducer(initialState, getPatientDetails(1));
+    const state = reducer(initialState, { name: GET_PATIENT_DETAILS, patientID: 1 });
     expect(state.patientDetailsLoading).toBe(true);
   });
 
@@ -91,7 +91,8 @@ describe("main application reducer", () => {
     let state;
 
     beforeEach(() => {
-      state = reducer(initialState, receivePatientDetails(incomingPatientDetails));
+      const action = Object.assign({}, incomingPatientDetails, { name: RECEIVE_PATIENT_DETAILS });
+      state = reducer(initialState, action);
     });
 
     it("should add patient's appointment objects to the appointments list", () => {
@@ -118,7 +119,7 @@ describe("main application reducer", () => {
   });
 
   it("when handling GET_APPOINTMENT_LIST, it sets appointmentsLoading to true", () => {
-    const state = reducer(initialState, getAppointmentList());
+    const state = reducer(initialState, { name: GET_APPOINTMENT_LIST });
     expect(state.appointmentsLoading).toBe(true);
   });
 
@@ -142,7 +143,10 @@ describe("main application reducer", () => {
     ];
 
     const mockState = Object.assign({}, initialState, {appointments: [mockAppointment]});
-    const state = reducer(mockState, receiveAppointmentList(incomingAppointments));
+    const state = reducer(mockState, {
+      name: RECEIVE_APPOINTMENT_LIST,
+      appointments: incomingAppointments
+    });
     
     it("replaces the appointment list", () => {
       expect(state.appointments).toEqual(incomingAppointments);
@@ -172,14 +176,14 @@ describe("main application reducer", () => {
     });
 
     it("expands the collapsed", () => {
-      const state = reducer(mockState, toggleAppointmentExpand(16));
+      const state = reducer(mockState, { name: TOGGLE_APPOINTMENT_EXPAND, appointmentID: 16});
       expect(state.appointmentDetails["16"]);
       expect(state.appointmentDetails["16"].expand).toBe(true);
     });
 
     it("collapses the expanded", () => {
       mockState.appointmentDetails["16"].expand = true;
-      const state = reducer(mockState, toggleAppointmentExpand(16));
+      const state = reducer(mockState, { name: TOGGLE_APPOINTMENT_EXPAND, appointmentID: 16});
       expect(state.appointmentDetails["16"]);
       expect(state.appointmentDetails["16"].expand).toBe(false);
     });
