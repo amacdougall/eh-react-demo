@@ -10,7 +10,8 @@
     "react-dom": "^16.2.0",
     "react-scripts": "1.1.1",
     "react-test-renderer": "^16.2.0",
-    "redux": "^3.7.2"
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -18,5 +19,8 @@
     "test": "react-scripts test --env=jsdom",
     "test:debug": "react-scripts --inspect-brk test --runInBand --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "redux-mock-store": "^1.5.1"
   }
 }
