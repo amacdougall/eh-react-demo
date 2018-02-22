@@ -5,6 +5,7 @@ import {
   SET_VIEW,
   GET_PATIENTS,
   RECEIVE_PATIENTS,
+  VIEW_PATIENT_DETAILS,
   GET_PATIENT_DETAILS,
   RECEIVE_PATIENT_DETAILS,
   GET_APPOINTMENTS,
@@ -58,6 +59,11 @@ describe("main application reducer", () => {
     it("sets patientsLoading to false", () => {
       expect(state.patientsLoading).toBe(false);
     });
+  });
+
+  it("when handling VIEW_PATIENT_DETAILS, it sets selectedPatientID", () => {
+    const state = reducer(initialState, { type: VIEW_PATIENT_DETAILS, patientID: 1 });
+    expect(state.selectedPatientID).toEqual(1);
   });
 
   it("when handling GET_PATIENT_DETAILS, it sets patientDetailsLoading to true", () => {

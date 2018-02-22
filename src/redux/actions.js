@@ -30,6 +30,15 @@ export const GET_PATIENTS = "GET_PATIENTS";
 export const RECEIVE_PATIENTS = "RECEIVE_PATIENTS";
 
 /**
+ * View details for a single patient, by id. If details are available in the
+ * store, immediate display them; otherwise, should dispatch GET_PATIENT_DETAILS
+ * and then RECEIVE_PATIENT_DETAILS.
+ *
+ * {type: "VIEW_PATIENT_DETAILS", patientID: Number}
+ */
+export const VIEW_PATIENT_DETAILS = "VIEW_PATIENT_DETAILS";
+
+/**
  * Get details for a single patient, by id. Once available,
  * RECEIVE_PATIENT_DETAILS will occur.
  *

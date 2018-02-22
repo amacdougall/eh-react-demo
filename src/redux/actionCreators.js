@@ -3,6 +3,7 @@ import {
   SET_VIEW,
   GET_PATIENTS,
   RECEIVE_PATIENTS,
+  VIEW_PATIENT_DETAILS,
   GET_PATIENT_DETAILS,
   RECEIVE_PATIENT_DETAILS,
   GET_APPOINTMENTS,
@@ -29,9 +30,20 @@ export function getPatients() {
   };
 }
 
+export function viewPatientDetails(patientID) {
+  return (dispatch, getState) => {
+    dispatch({ type: VIEW_PATIENT_DETAILS, patientID });
+
+    const details = getState().patientDetails;
+    if (details[patientID.toString()] == null) {
+      return dispatch(getPatientDetails(patientID));
+    }
+  };
+}
+
 export function getPatientDetails(patientID) {
   return dispatch => {
-    dispatch({ type: GET_PATIENT_DETAILS, patientID: patientID });
+    dispatch({ type: GET_PATIENT_DETAILS, patientID });
     return loadPatientDetails(patientID).then(details => {
       dispatch(Object.assign({ type: RECEIVE_PATIENT_DETAILS }, details));
     });

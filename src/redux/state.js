@@ -2,6 +2,7 @@ import {
   SET_VIEW,
   GET_PATIENTS,
   RECEIVE_PATIENTS,
+  VIEW_PATIENT_DETAILS,
   GET_PATIENT_DETAILS,
   RECEIVE_PATIENT_DETAILS,
   GET_APPOINTMENTS,
@@ -34,6 +35,7 @@ import _ from "lodash";
  *       messageCount: 4
  *     }
  *   },
+ *   selectedPatientID: 1,
  *   appointmentsLoading: false,
  *   appointments: [
  *     {
@@ -67,6 +69,7 @@ export const initialState = {
   patients: [], // a list of patient data
   patientDetailsLoading: false,
   patientDetails: {}, // a hash keyed by patient id
+  selectedPatientID: Number, // id of the patient chosen from the list
   appointmentsLoading: false,
   appointments: [],
   appointmentDetails: {} // a hash keyed by appointment id
@@ -91,6 +94,8 @@ export function reducer(state = initialState, action) {
         patientsLoading: false,
         patients: action.patients
       });
+    case VIEW_PATIENT_DETAILS:
+      return Object.assign({}, state, { selectedPatientID: action.patientID });
     case GET_PATIENT_DETAILS:
       // TODO: side effect
       return Object.assign({}, state, { patientDetailsLoading: true });
