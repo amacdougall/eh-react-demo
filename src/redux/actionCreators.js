@@ -45,7 +45,7 @@ export function getPatientDetails(patientID) {
   return dispatch => {
     dispatch({ type: GET_PATIENT_DETAILS, patientID });
     return loadPatientDetails(patientID).then(details => {
-      dispatch(Object.assign({ type: RECEIVE_PATIENT_DETAILS }, details));
+      dispatch(Object.assign({ type: RECEIVE_PATIENT_DETAILS, patientID }, details));
     });
   };
 }

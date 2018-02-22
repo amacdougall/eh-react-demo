@@ -52,6 +52,7 @@ it("viewPatientDetails dispatches load actions when details are not yet availabl
       { type: GET_PATIENT_DETAILS, patientID: 2 },
       {
         type: RECEIVE_PATIENT_DETAILS,
+        patientID: 2,
         appointments: mockAppointments,
         messageCount: 2
       }
@@ -69,6 +70,7 @@ it("getPatientDetails dispatches desired actions", () => {
       { type: GET_PATIENT_DETAILS, patientID: 2 },
       {
         type: RECEIVE_PATIENT_DETAILS,
+        patientID: 2,
         appointments: mockAppointments,
         messageCount: 2
       }
