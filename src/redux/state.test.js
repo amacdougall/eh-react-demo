@@ -3,12 +3,12 @@ import _ from "lodash";
 import { initialState, reducer } from "./state";
 import {
   SET_VIEW,
-  GET_PATIENT_LIST,
-  RECEIVE_PATIENT_LIST,
+  GET_PATIENTS,
+  RECEIVE_PATIENTS,
   GET_PATIENT_DETAILS,
   RECEIVE_PATIENT_DETAILS,
-  GET_APPOINTMENT_LIST,
-  RECEIVE_APPOINTMENT_LIST,
+  GET_APPOINTMENTS,
+  RECEIVE_APPOINTMENTS,
   TOGGLE_APPOINTMENT_EXPAND,
   Views
 } from "./actions";
@@ -20,16 +20,16 @@ describe("main application reducer", () => {
   });
 
   it("when handling SET_VIEW, it sets the correct view in the state", () => {
-    const state = reducer(initialState, { name: SET_VIEW, view: Views.APPOINTMENTS });
+    const state = reducer(initialState, { type: SET_VIEW, view: Views.APPOINTMENTS });
     expect(state.view).toEqual(Views.APPOINTMENTS);
   });
 
-  it("when handling GET_PATIENT_LIST, it sets patientsLoading true", () => {
-    const state = reducer(initialState, { name: GET_PATIENT_LIST });
+  it("when handling GET_PATIENTS, it sets patientsLoading true", () => {
+    const state = reducer(initialState, { type: GET_PATIENTS });
     expect(state.patientsLoading).toBe(true);
   });
 
-  describe("when handling RECEIVE_PATIENT_LIST", () => {
+  describe("when handling RECEIVE_PATIENTS", () => {
     const mockPatient = {
       id: 1000,
       name: "Beric Dondarrian",
@@ -48,7 +48,7 @@ describe("main application reducer", () => {
     let state;
 
     beforeEach(() => {
-      state = reducer(mockState, { name: RECEIVE_PATIENT_LIST, patients: incomingPatients });
+      state = reducer(mockState, { type: RECEIVE_PATIENTS, patients: incomingPatients });
     });
 
     it("replaces the patient list", () => {
@@ -61,7 +61,7 @@ describe("main application reducer", () => {
   });
 
   it("when handling GET_PATIENT_DETAILS, it sets patientDetailsLoading to true", () => {
-    const state = reducer(initialState, { name: GET_PATIENT_DETAILS, patientID: 1 });
+    const state = reducer(initialState, { type: GET_PATIENT_DETAILS, patientID: 1 });
     expect(state.patientDetailsLoading).toBe(true);
   });
 
@@ -91,7 +91,7 @@ describe("main application reducer", () => {
     let state;
 
     beforeEach(() => {
-      const action = Object.assign({}, incomingPatientDetails, { name: RECEIVE_PATIENT_DETAILS });
+      const action = Object.assign({ type: RECEIVE_PATIENT_DETAILS }, incomingPatientDetails);
       state = reducer(initialState, action);
     });
 
@@ -118,12 +118,12 @@ describe("main application reducer", () => {
     });
   });
 
-  it("when handling GET_APPOINTMENT_LIST, it sets appointmentsLoading to true", () => {
-    const state = reducer(initialState, { name: GET_APPOINTMENT_LIST });
+  it("when handling GET_APPOINTMENTS, it sets appointmentsLoading to true", () => {
+    const state = reducer(initialState, { type: GET_APPOINTMENTS });
     expect(state.appointmentsLoading).toBe(true);
   });
 
-  describe("when handling RECEIVE_APPOINTMENT_LIST", () => {
+  describe("when handling RECEIVE_APPOINTMENTS", () => {
     const mockAppointment = {
       "id": 1000,
       "datetime": "2017-06-01T12:00:00",
@@ -144,7 +144,7 @@ describe("main application reducer", () => {
 
     const mockState = Object.assign({}, initialState, {appointments: [mockAppointment]});
     const state = reducer(mockState, {
-      name: RECEIVE_APPOINTMENT_LIST,
+      type: RECEIVE_APPOINTMENTS,
       appointments: incomingAppointments
     });
     
@@ -176,14 +176,14 @@ describe("main application reducer", () => {
     });
 
     it("expands the collapsed", () => {
-      const state = reducer(mockState, { name: TOGGLE_APPOINTMENT_EXPAND, appointmentID: 16});
+      const state = reducer(mockState, { type: TOGGLE_APPOINTMENT_EXPAND, appointmentID: 16});
       expect(state.appointmentDetails["16"]);
       expect(state.appointmentDetails["16"].expand).toBe(true);
     });
 
     it("collapses the expanded", () => {
       mockState.appointmentDetails["16"].expand = true;
-      const state = reducer(mockState, { name: TOGGLE_APPOINTMENT_EXPAND, appointmentID: 16});
+      const state = reducer(mockState, { type: TOGGLE_APPOINTMENT_EXPAND, appointmentID: 16});
       expect(state.appointmentDetails["16"]);
       expect(state.appointmentDetails["16"].expand).toBe(false);
     });

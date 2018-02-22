@@ -3,7 +3,7 @@
 /**
  * Change the main view.
  *
- * {name: "SET_VIEW", view: "patients|appointments"}
+ * {type: "SET_VIEW", view: "patients|appointments"}
  */
 export const SET_VIEW = "SET_VIEW";
 
@@ -16,24 +16,24 @@ export const Views = {
 };
 
 /**
- * Get the patient list. Once available, RECEIVE_PATIENT_LIST will occur.
+ * Get the patient list. Once available, RECEIVE_PATIENTS will occur.
  *
- * {name: "GET_PATIENT_LIST"}
+ * {type: "GET_PATIENTS"}
  */
-export const GET_PATIENT_LIST = "GET_PATIENT_LIST";
+export const GET_PATIENTS = "GET_PATIENTS";
 
 /**
  * Receive the patient list.
  *
- * {name: "RECEIVE_PATIENT_LIST", patients: Array}
+ * {type: "RECEIVE_PATIENTS", patients: Array}
  */
-export const RECEIVE_PATIENT_LIST = "RECEIVE_PATIENT_LIST";
+export const RECEIVE_PATIENTS = "RECEIVE_PATIENTS";
 
 /**
  * Get details for a single patient, by id. Once available,
  * RECEIVE_PATIENT_DETAILS will occur.
  *
- * {name: "GET_PATIENT_DETAILS", patientID: Number}
+ * {type: "GET_PATIENT_DETAILS", patientID: Number}
  */
 export const GET_PATIENT_DETAILS = "GET_PATIENT_DETAILS";
 
@@ -41,7 +41,7 @@ export const GET_PATIENT_DETAILS = "GET_PATIENT_DETAILS";
  * Receive details for a single patient.
  *
  * {
- *   name: "RECEIVE_PATIENT_DETAILS", 
+ *   type: "RECEIVE_PATIENT_DETAILS", 
  *   patientID: Number,
  *   appointments: Array,
  *   messageCount: Number
@@ -50,23 +50,23 @@ export const GET_PATIENT_DETAILS = "GET_PATIENT_DETAILS";
 export const RECEIVE_PATIENT_DETAILS = "RECEIVE_PATIENT_DETAILS";
 
 /**
- * Get the list of all appointments. Once available, RECEIVE_APPOINTMENT_LIST
+ * Get the list of all appointments. Once available, RECEIVE_APPOINTMENTS
  * will occur.
  *
- * {name: "GET_APPOINTMENT_LIST"}
+ * {type: "GET_APPOINTMENTS"}
  */
-export const GET_APPOINTMENT_LIST = "GET_APPOINTMENT_LIST";
+export const GET_APPOINTMENTS = "GET_APPOINTMENTS";
 
 /**
  * Receive the list of all appointments.
  *
- * {name: "RECEIVE_APPOINTMENT_LIST", appointments: Array}
+ * {type: "RECEIVE_APPOINTMENTS", appointments: Array}
  */
-export const RECEIVE_APPOINTMENT_LIST = "RECEIVE_APPOINTMENT_LIST";
+export const RECEIVE_APPOINTMENTS = "RECEIVE_APPOINTMENTS";
 
 /**
  * Toggle expanded state of a single appointment, by ID.
  *
- * {name: "TOGGLE_APPOINTMENT_EXPAND", appointmentID: Number}
+ * {type: "TOGGLE_APPOINTMENT_EXPAND", appointmentID: Number}
  */
 export const TOGGLE_APPOINTMENT_EXPAND = "TOGGLE_APPOINTMENT_EXPAND";

@@ -1,11 +1,11 @@
 import {
   SET_VIEW,
-  GET_PATIENT_LIST,
-  RECEIVE_PATIENT_LIST,
+  GET_PATIENTS,
+  RECEIVE_PATIENTS,
   GET_PATIENT_DETAILS,
   RECEIVE_PATIENT_DETAILS,
-  GET_APPOINTMENT_LIST,
-  RECEIVE_APPOINTMENT_LIST,
+  GET_APPOINTMENTS,
+  RECEIVE_APPOINTMENTS,
   TOGGLE_APPOINTMENT_EXPAND,
   Views
 } from "./actions";
@@ -80,13 +80,13 @@ export function reducer(state = initialState, action) {
     return state;
   }
 
-  switch (action.name) {
+  switch (action.type) {
     case SET_VIEW:
       return Object.assign({}, state, { view: action.view });
-    case GET_PATIENT_LIST:
+    case GET_PATIENTS:
       // TODO: side effect
       return Object.assign({}, state, { patientsLoading: true });
-    case RECEIVE_PATIENT_LIST:
+    case RECEIVE_PATIENTS:
       return Object.assign({}, state, {
         patientsLoading: false,
         patients: action.patients
@@ -113,10 +113,10 @@ export function reducer(state = initialState, action) {
           }
         })
       });
-    case GET_APPOINTMENT_LIST:
+    case GET_APPOINTMENTS:
       // TODO: side effect
       return Object.assign({}, state, { appointmentsLoading: true });
-    case RECEIVE_APPOINTMENT_LIST:
+    case RECEIVE_APPOINTMENTS:
       // it's okay to replace the whole list here, since we aren't paginating (yet)
       return Object.assign({}, state, {
         appointmentsLoading: false,

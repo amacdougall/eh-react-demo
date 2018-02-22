@@ -8,7 +8,7 @@ const MESSAGES_URL = "https://eden-interview-api.herokuapp.com/user_actions?pati
  *
  * @return {Promise} - A promise which resolves with an Array of patients.
  */
-export function loadPatientList() {
+export function loadPatients() {
   return fetch(PATIENTS_URL).then(response => response.json());
 }
 
@@ -17,7 +17,7 @@ export function loadPatientList() {
  *
  * @return {Promise} - A promise which resolves with an Array of appointments.
  */
-export function loadAppointmentList() {
+export function loadAppointments() {
   return fetch(APPOINTMENTS_URL).then(response => response.json());
 }
 
