@@ -1,15 +1,15 @@
 import React, { Component } from "react";
-// import { connect } from "react-redux";
 import "./MainView.css";
+import PatientList from "./PatientList";
+import PatientDetails from "./PatientDetails";
 
-class MainView extends Component {
+export default class MainView extends Component {
   render() {
     return (
-      <div>
-        Main view goes here.
+      <div className="MainView">
+        <PatientList/>
+        <PatientDetails/>
       </div>
     );
   }
 }
-
-export default MainView;

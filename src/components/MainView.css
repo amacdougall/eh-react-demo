@@ -1,1 +1,5 @@
-/* no styles yet */
+.MainView {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+}
