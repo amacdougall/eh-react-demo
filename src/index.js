@@ -7,12 +7,10 @@ import registerServiceWorker from "./registerServiceWorker";
 import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { reducer, initialState } from "./redux/state";
+import { Provider } from "react-redux";
 
 // dev
 import { composeWithDevTools } from "redux-devtools-extension";
-
-// debug
-import { getPatients } from "./redux/actionCreators";
 
 const store = createStore(
   reducer,
@@ -20,8 +18,10 @@ const store = createStore(
   composeWithDevTools(applyMiddleware(thunk))
 );
 
-window.store = store; // debug
-window.getPatients = getPatients;
-
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+);
 registerServiceWorker();

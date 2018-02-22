@@ -1,20 +1,15 @@
-import React, { Component } from 'react';
-import logo from '../logo.svg';
-import './App.css';
-import ExampleGrid from './ExampleGrid.js';
+import React, { Component } from "react";
+import "./App.css";
+import Navigation from "./Navigation.js";
+import MainView from "./MainView.js";
 
-class App extends Component {
-  render() {
+export default class App extends Component {
+  render(props) {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo"/>
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <ExampleGrid/>
+      <div>
+        <Navigation />
+        <MainView />
       </div>
     );
   }
 }
-
-export default App;
