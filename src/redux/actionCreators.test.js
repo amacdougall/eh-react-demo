@@ -78,14 +78,32 @@ it("getPatientDetails dispatches desired actions", () => {
   });
 });
 
-it("getAppointments dispatches desired action", () => {
-  const store = mockStore(initialState);
-  fetch.mockResponse(JSON.stringify(mockAppointments));
+describe("getAppointments", () => {
+  it("when patients are already loaded, just gets appointments", () => {
+    const store = mockStore(Object.assign({}, initialState, { patients: mockPatients }));
 
-  return store.dispatch(getAppointments()).then(() => {
-    expect(store.getActions()).toEqual([
-      { type: GET_APPOINTMENTS },
-      { type: RECEIVE_APPOINTMENTS, appointments: mockAppointments }
-    ]);
+    fetch.mockResponse(JSON.stringify(mockAppointments));
+
+    return store.dispatch(getAppointments()).then(() => {
+      expect(store.getActions()).toEqual([
+        { type: GET_APPOINTMENTS },
+        { type: RECEIVE_APPOINTMENTS, appointments: mockAppointments }
+      ]);
+    });
+  });
+
+  it("when patients are not loaded, gets patients and appointments", () => {
+    const store = mockStore(initialState);
+    fetch.mockResponseOnce(JSON.stringify(mockPatients));
+    fetch.mockResponseOnce(JSON.stringify(mockAppointments));
+
+    return store.dispatch(getAppointments()).then(() => {
+      expect(store.getActions()).toEqual([
+        { type: GET_PATIENTS },
+        { type: GET_APPOINTMENTS },
+        { type: RECEIVE_PATIENTS, patients: mockPatients },
+        { type: RECEIVE_APPOINTMENTS, appointments: mockAppointments }
+      ]);
+    });
   });
 });

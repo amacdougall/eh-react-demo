@@ -52,12 +52,14 @@ export function getPatientDetails(patientID) {
 
 export function getAppointments() {
   return (dispatch, getState) => {
-    dispatch({ type: GET_APPOINTMENTS });
     if (getState().patients.length > 0) {
+      dispatch({ type: GET_APPOINTMENTS });
       return loadAppointments().then(appointments => {
         dispatch({ type: RECEIVE_APPOINTMENTS, appointments });
       });
     } else {
+      dispatch({ type: GET_PATIENTS });
+      dispatch({ type: GET_APPOINTMENTS });
       // if we have not loaded patients yet, do it now
       return Promise.all([
         loadPatients(),
