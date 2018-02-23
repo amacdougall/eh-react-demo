@@ -1,1 +1,46 @@
-/* no styles yet */
+h1 {
+  margin-top: 0;
+}
+
+.PatientDetails-info {
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+  grid-auto-rows: 1.5rem;
+}
+
+.PatientDetails-info-heading {
+  font-weight: bold;
+  text-align: right;
+  margin-right: 1rem;
+}
+
+.PatientDetails-appointment-headings, .PatientDetails-appointment-entry-data-row {
+  display: grid;
+  grid-template-columns: 1fr 3fr 3fr;
+  padding: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.PatientDetails-appointment-headings {
+  border-bottom: thin black solid;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.PatientDetails-appointment-entry-data-row {
+  cursor: pointer;
+  background: lightblue;
+}
+
+.PatientDetails-appointment-entry-note {
+  margin: 1rem;
+  padding: 1rem;
+  font-style: italic;
+  border: thin lightblue solid;
+  border-radius: 1rem;
+}
+
+.hidden {
+  display: none;
+}
+

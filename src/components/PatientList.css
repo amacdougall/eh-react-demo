@@ -1,7 +1,5 @@
 /* no styles yet */
 .PatientList {
-  background: lightblue;
-  padding-left: 2rem;
   margin-right: 1rem;
   display: grid;
   grid-template-columns: 1fr;
@@ -9,9 +7,13 @@
 }
 
 .patient-list-entry {
-  margin: 0.5rem 0;
+  background: silver;
+  padding: 0.5rem 0;
+  padding-left: 2rem;
+  margin-bottom: 1px;
+  cursor: pointer;
 }
 
 .patient-list-entry--selected {
-  background: blue;
+  background: lightblue;
 }

@@ -4,27 +4,3 @@ body {
   font-family: sans-serif;
 }
 
-.navigation-bar {
-
-}
-
-.navigation-button {
-  background: #ffffff;
-  border-radius: 8px;
-  font-family: Arial;
-  color: #000;
-  font-size: 20px;
-  padding: 10px 20px 10px 20px;
-  text-decoration: none;
-}
-
-.navigation-button:hover {
-  background: #3cb0fd;
-  background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
-  text-decoration: none;
-}
-
-.navigation-button--selected {
-  background: #3498db;
-  background-image: linear-gradient(to bottom, #3498db, #2980b9);
-}

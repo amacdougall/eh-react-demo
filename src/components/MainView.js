@@ -1,15 +1,28 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Views } from "../redux/actions";
+import Patients from "./Patients";
+import AppointmentList from "./AppointmentList";
 import "./MainView.css";
-import PatientList from "./PatientList";
-import PatientDetails from "./PatientDetails";
 
-export default class MainView extends Component {
+class MainView extends Component {
   render() {
-    return (
-      <div className="MainView">
-        <PatientList/>
-        <PatientDetails/>
-      </div>
-    );
+    if (this.props.view === Views.PATIENTS) {
+      return (
+        <Patients/>
+      );
+    } else {
+      return (
+        <AppointmentList/>
+      );
+    }
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    view: state.view
+  }
+};
+
+export default connect(mapStateToProps)(MainView);

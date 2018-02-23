@@ -1,6 +1,6 @@
 const PATIENTS_URL = "https://eden-interview-api.herokuapp.com/patients";
-const APPOINTMENTS_URL = "https://eden-interview-api.herokuapp.com/appointments";
-const PATIENT_APPOINTMENTS_URL = "https://eden-interview-api.herokuapp.com/appointments?patiend_id=:patient_id";
+const APPOINTMENTS_URL = "https://eden-interview-api.herokuapp.com/appointments?_sort=datetime";
+const PATIENT_APPOINTMENTS_URL = "https://eden-interview-api.herokuapp.com/appointments?patient_id=:patient_id&_sort=datetime";
 const MESSAGES_URL = "https://eden-interview-api.herokuapp.com/user_actions?patient_id=:patient_id&action=message";
 
 /**
@@ -13,7 +13,7 @@ export function loadPatients() {
 }
 
 /**
- * Load the list of appointments from the data source.
+ * Load the list of appointments from the data source, sorted by appointment date.
  *
  * @return {Promise} - A promise which resolves with an Array of appointments.
  */

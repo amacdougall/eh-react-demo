@@ -51,16 +51,23 @@ export function getPatientDetails(patientID) {
 }
 
 export function getAppointments() {
-  return dispatch => {
+  return (dispatch, getState) => {
     dispatch({ type: GET_APPOINTMENTS });
-    return loadAppointments().then(appointments => {
-      dispatch({ type: RECEIVE_APPOINTMENTS, appointments });
-    });
+    if (getState().patients.length > 0) {
+      return loadAppointments().then(appointments => {
+        dispatch({ type: RECEIVE_APPOINTMENTS, appointments });
+      });
+    } else {
+      // if we have not loaded patients yet, do it now
+      return Promise.all([
+        loadPatients(),
+        loadAppointments()
+      ]).then(([patients, appointments]) => {
+        dispatch({ type: RECEIVE_PATIENTS, patients });
+        dispatch({ type: RECEIVE_APPOINTMENTS, appointments });
+      })
+    }
   };
-}
-
-export function receiveAppointments(appointments) {
-  return { type: RECEIVE_APPOINTMENTS, appointments };
 }
 
 export function toggleAppointmentExpand(appointmentID) {

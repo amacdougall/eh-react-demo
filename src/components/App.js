@@ -4,7 +4,7 @@ import Navigation from "./Navigation.js";
 import MainView from "./MainView.js";
 
 export default class App extends Component {
-  render(props) {
+  render() {
     return (
       <div>
         <Navigation />
