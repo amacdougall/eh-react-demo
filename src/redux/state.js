@@ -31,7 +31,6 @@ import _ from "lodash";
  *   patientDetailsLoading: false,
  *   patientDetails: {
  *     "1": {
- *       appointmentIDs: [1, 3],
  *       messageCount: 4
  *     }
  *   },
@@ -97,7 +96,6 @@ export function reducer(state = initialState, action) {
     case VIEW_PATIENT_DETAILS:
       return Object.assign({}, state, { selectedPatientID: action.patientID });
     case GET_PATIENT_DETAILS:
-      // TODO: side effect
       return Object.assign({}, state, { patientDetailsLoading: true });
     case RECEIVE_PATIENT_DETAILS:
       return Object.assign({}, state, {
@@ -112,10 +110,7 @@ export function reducer(state = initialState, action) {
         ),
         patientDetailsLoading: false,
         patientDetails: Object.assign({}, state.patientDetails, {
-          [action.patientID.toString()]: {
-            appointmentIDs: action.appointments.map(a => a.id),
-            messageCount: action.messageCount
-          }
+          [action.patientID.toString()]: { messageCount: action.messageCount }
         })
       });
     case GET_APPOINTMENTS:

@@ -109,11 +109,6 @@ describe("main application reducer", () => {
       expect(state.patientDetails.hasOwnProperty(incomingPatientDetails.patientID));
     });
 
-    it("should add appointment id list to patient details", () => {
-      expect(state.patientDetails[incomingPatientDetails.patientID].appointmentIDs)
-        .toEqual(incomingPatientDetails.appointments.map(a => a.id));
-    });
-
     it("should add message count to patient details", () => {
       expect(state.patientDetails[incomingPatientDetails.patientID].messageCount)
         .toEqual(incomingPatientDetails.messageCount);
